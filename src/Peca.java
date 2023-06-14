@@ -4,6 +4,10 @@ public abstract class Peca {
     private String cor;
     private Posicao posicao;
 
+    public Peca(String cor){
+        this.cor = cor;
+    }
+
     public boolean verificaPeca(Posicao posicao, ArrayList<Posicao> possiveisMovimentos) {
         if (posicao.getPeca() == null) {
             possiveisMovimentos.add(posicao);
@@ -31,7 +35,9 @@ public abstract class Peca {
         }
         this.posicao = posicao;
     }
-
+    public boolean validaExtremidade(int posicaoNoTabuleiro){
+        return posicaoNoTabuleiro % 8 == 0;
+    }
     public abstract ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro);
 
 //    public abstract char icone();
