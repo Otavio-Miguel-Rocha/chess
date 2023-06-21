@@ -7,14 +7,46 @@ public class Jogador {
     private double pontos;
     private ArrayList<Peca> pecas;
 
-    public boolean moverPeca(Peca peca, Posicao posicao){
+    public Jogador(String nome, String senha) {
+        this.nome = nome;
+        this.senha = senha;
+        this.pecas = new ArrayList<>();
+    }
+
+    public boolean moverPeca(Peca peca, Posicao posicao,
+                             Tabuleiro tabuleiro, Jogador adversario) {
+        Peca pecaAdversaria = posicao.getPeca();
+        boolean valida = peca.mover(tabuleiro, posicao);
+        if (pecaAdversaria != null && valida) {
+            adversario.pecas.remove(pecaAdversaria);
+        }
+        return valida;
+    }
+
+    public boolean proporEmpate(Jogador jogador) {
         return true;
     }
 
-    public boolean proporEmpate(Jogador jogador){
-        return true;
+    public void desistir() {
     }
-    public void desistir(){}
 
 
+    public void setCor(String cor, Tabuleiro tabuleiro) {
+        this.cor = cor;
+        for (Posicao posicao : tabuleiro.getPosicoes()) {
+//            if(posicao.getPeca().getCor().equals(this.cor)){
+//                this.pecas.add(posicao.getPeca());
+//            }
+            if (posicao.getPeca() != null) {
+                if (posicao.getPeca().getCor().equals(this.cor)) {
+                    this.pecas.add(posicao.getPeca());
+                }
+            }
+        }
+    }
+
+
+    public ArrayList<Peca> getPecas() {
+        return pecas;
+    }
 }

@@ -4,7 +4,7 @@ public abstract class Peca {
     private String cor;
     private Posicao posicao;
 
-    public Peca(String cor){
+    public Peca(String cor) {
         this.cor = cor;
     }
 
@@ -20,7 +20,7 @@ public abstract class Peca {
 
     }
 
-    public void mover(Tabuleiro tabuleiro, Posicao posicao) {
+    public boolean mover(Tabuleiro tabuleiro, Posicao posicao) {
         ArrayList<Posicao> possiveisPosicoes = possiveisMovimentos(tabuleiro);
         for (Posicao posicaoPossivel : possiveisPosicoes) {
             if (posicaoPossivel == posicao) {
@@ -30,14 +30,16 @@ public abstract class Peca {
                 this.posicao.setPeca(null);
                 // Troca a posição atual da peça na lógica
                 this.posicao = posicao;
-                break;
+                return true;
             }
         }
-        this.posicao = posicao;
+        return false;
     }
-    public boolean validaExtremidade(int posicaoNoTabuleiro){
+
+    public boolean validaExtremidade(int posicaoNoTabuleiro) {
         return posicaoNoTabuleiro % 8 == 0;
     }
+
     public abstract ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro);
 
 //    public abstract char icone();
@@ -49,5 +51,12 @@ public abstract class Peca {
 
     public String getCor() {
         return cor;
+    }
+
+    public String toString2() {
+        return "Peca{" + "\n" +
+                "Cor = " + cor + "\n" +
+                "Posicao = " + posicao + "\n" +
+                '}';
     }
 }

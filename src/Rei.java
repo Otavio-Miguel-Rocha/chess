@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Rei extends Peca{
+public class Rei extends Peca {
     private boolean primeiroMovimento;
 
     public Rei(String cor) {
@@ -24,7 +24,7 @@ public class Rei extends Peca{
                     indice == posicaoNoTabuleiro + 8 ||
                     indice == posicaoNoTabuleiro + 9) {
                 //coluna H
-                if (validaExtremidade(posicaoNoTabuleiro+1) && !(
+                if (validaExtremidade(posicaoNoTabuleiro + 1) && !(
                         indice == posicaoNoTabuleiro - 7 ||
                                 indice == posicaoNoTabuleiro + 1 ||
                                 indice == posicaoNoTabuleiro + 9
@@ -32,18 +32,31 @@ public class Rei extends Peca{
                     verificaPeca(posicao, possiveisMovimentos);
                 }
                 //coluna a
-                else if (validaExtremidade(posicaoNoTabuleiro)&& !(
+                else if (validaExtremidade(posicaoNoTabuleiro) && !(
                         indice == posicaoNoTabuleiro - 9 ||
                                 indice == posicaoNoTabuleiro - 1 ||
                                 indice == posicaoNoTabuleiro + 7
                 )) {
                     verificaPeca(posicao, possiveisMovimentos);
-                }
-                else {
+                } else {
                     verificaPeca(posicao, possiveisMovimentos);
                 }
             }
         }
         return null;
+    }
+
+    @Override
+    public String toString() {
+        if (this.getCor().equals("Preto")) {
+            return "♚";
+        }
+        return "♔";
+    }
+
+    @Override
+    public String toString2() {
+        return "Rei " + "\n" +
+                super.toString2() + "\n";
     }
 }

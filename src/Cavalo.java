@@ -22,7 +22,7 @@ public class Cavalo extends Peca {
                     indice == posicaoNoTabuleiro + 15 ||
                     indice == posicaoNoTabuleiro + 17) {
                 //coluna H
-                if (validaExtremidade(posicaoNoTabuleiro+1) && !(
+                if (validaExtremidade(posicaoNoTabuleiro + 1) && !(
                         indice == posicaoNoTabuleiro - 15 ||
                                 indice == posicaoNoTabuleiro - 6 ||
                                 indice == posicaoNoTabuleiro + 10 ||
@@ -31,7 +31,7 @@ public class Cavalo extends Peca {
                     verificaPeca(posicao, possiveisMovimentos);
                 }
                 //coluna a
-                else if (validaExtremidade(posicaoNoTabuleiro)&& !(
+                else if (validaExtremidade(posicaoNoTabuleiro) && !(
                         indice == posicaoNoTabuleiro - 17 ||
                                 indice == posicaoNoTabuleiro - 10 ||
                                 indice == posicaoNoTabuleiro + 6 ||
@@ -40,14 +40,14 @@ public class Cavalo extends Peca {
                     verificaPeca(posicao, possiveisMovimentos);
                 }
                 //Coluna B
-                else if (validaExtremidade(posicaoNoTabuleiro-1) && !(
+                else if (validaExtremidade(posicaoNoTabuleiro - 1) && !(
                         indice == posicaoNoTabuleiro - 10 ||
                                 indice == posicaoNoTabuleiro + 6
                 )) {
                     verificaPeca(posicao, possiveisMovimentos);
                 }
                 //Coluna G
-                else if (validaExtremidade(posicaoNoTabuleiro+2) && !(
+                else if (validaExtremidade(posicaoNoTabuleiro + 2) && !(
                         indice == posicaoNoTabuleiro - 15 ||
                                 indice == posicaoNoTabuleiro + 17
                 )) {
@@ -60,5 +60,19 @@ public class Cavalo extends Peca {
             }
         }
         return possiveisMovimentos;
+    }
+
+    @Override
+    public String toString() {
+        if (this.getCor().equals("Preto")) {
+            return "♞";
+        }
+        return "♘";
+    }
+
+    @Override
+    public String toString2() {
+        return "Cavalo " + "\n" +
+                super.toString2() + "\n";
     }
 }

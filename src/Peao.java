@@ -3,9 +3,10 @@ import java.util.ArrayList;
 public class Peao extends Peca {
     private boolean primeiroMovimento = true;
 
-    public Peao(String cor){
+    public Peao(String cor) {
         super(cor);
     }
+
     @Override
     public ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {
         ArrayList<Posicao> possiveisMovimentos = new ArrayList<>();
@@ -23,7 +24,7 @@ public class Peao extends Peca {
                 }
             }
             if (posicoesTabuleiro.get(posicaoNoTabuleiro + 9).getPeca().getCor().equals("Branco")
-                    && !validaExtremidade(posicaoNoTabuleiro+1)) {
+                    && !validaExtremidade(posicaoNoTabuleiro + 1)) {
                 possiveisMovimentos.add(posicoesTabuleiro.get(posicaoNoTabuleiro + 9));
             }
             if (posicoesTabuleiro.get(posicaoNoTabuleiro + 7).getPeca().getCor().equals("Branco")
@@ -44,10 +45,23 @@ public class Peao extends Peca {
                 possiveisMovimentos.add(posicoesTabuleiro.get(posicaoNoTabuleiro - 9));
             }
             if (posicoesTabuleiro.get(posicaoNoTabuleiro - 7).getPeca().getCor().equals("Preto")
-                    && !validaExtremidade(posicaoNoTabuleiro+1)) {
+                    && !validaExtremidade(posicaoNoTabuleiro + 1)) {
                 possiveisMovimentos.add(posicoesTabuleiro.get(posicaoNoTabuleiro - 7));
             }
         }
         return possiveisMovimentos;
+    }
+
+    @Override
+    public String toString() {
+        if( this.getCor().equals("Preto")){
+            return "♟";
+        }
+        return "♙";
+    }
+    @Override
+    public String toString2() {
+        return "Torre " + "\n" +
+                super.toString2() + "\n";
     }
 }
