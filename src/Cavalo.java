@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Cavalo extends Peca {
-    public Cavalo(String cor) {
-        super(cor);
+    public Cavalo(String cor, Posicao posicao) {
+        super(cor, posicao);
     }
 
     @Override
@@ -65,9 +65,9 @@ public class Cavalo extends Peca {
     @Override
     public String toString() {
         if (this.getCor().equals("Preto")) {
-            return "♞";
+            return "CP";
         }
-        return "♘";
+        return "CB";
     }
 
     @Override

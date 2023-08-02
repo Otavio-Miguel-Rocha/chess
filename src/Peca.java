@@ -4,8 +4,9 @@ public abstract class Peca {
     private String cor;
     private Posicao posicao;
 
-    public Peca(String cor) {
+    public Peca(String cor, Posicao posicao) {
         this.cor = cor;
+        this.posicao = posicao;
     }
 
     public boolean verificaPeca(Posicao posicao, ArrayList<Posicao> possiveisMovimentos) {
@@ -42,8 +43,6 @@ public abstract class Peca {
 
     public abstract ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro);
 
-//    public abstract char icone();
-
 
     public Posicao getPosicao() {
         return posicao;
@@ -56,7 +55,7 @@ public abstract class Peca {
     public String toString2() {
         return "Peca{" + "\n" +
                 "Cor = " + cor + "\n" +
-                "Posicao = " + posicao + "\n" +
+                "Posicao = " + posicao.getID() + "\n" +
                 '}';
     }
 }

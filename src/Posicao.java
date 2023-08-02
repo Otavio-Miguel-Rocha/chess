@@ -1,5 +1,6 @@
 public class Posicao {
     private Peca peca;
+    private String identificadorPosicao;
 
 
     public void setPeca(Peca peca) {
@@ -7,7 +8,14 @@ public class Posicao {
     }
 
     public Peca getPeca() {
-        return peca;
+        return this.peca;
+    }
+
+    public void setID(String identificador) {
+        this.identificadorPosicao = identificador;
+    }
+    public String getID() {
+        return this.identificadorPosicao;
     }
 
     @Override

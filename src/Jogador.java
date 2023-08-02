@@ -6,6 +6,7 @@ public class Jogador {
     private String cor;
     private double pontos;
     private ArrayList<Peca> pecas;
+    private ArrayList<Peca> pecasDoAdversario = new ArrayList<>();
 
     public Jogador(String nome, String senha) {
         this.nome = nome;
@@ -19,6 +20,8 @@ public class Jogador {
         boolean valida = peca.mover(tabuleiro, posicao);
         if (pecaAdversaria != null && valida) {
             adversario.pecas.remove(pecaAdversaria);
+            pecasDoAdversario.add(pecaAdversaria);
+
         }
         return valida;
     }
@@ -30,6 +33,10 @@ public class Jogador {
     public void desistir() {
     }
 
+
+    public String getNome(){
+        return this.nome;
+    }
 
     public void setCor(String cor, Tabuleiro tabuleiro) {
         this.cor = cor;
@@ -45,8 +52,17 @@ public class Jogador {
         }
     }
 
+    public String getCor(){
+        System.out.println(this.cor);
+        return this.cor;
+    }
+
 
     public ArrayList<Peca> getPecas() {
         return pecas;
+    }
+
+    public ArrayList<Peca> getPecasAdversarioAbatidas() {
+        return pecasDoAdversario;
     }
 }

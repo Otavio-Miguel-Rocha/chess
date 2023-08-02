@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class Torre extends Peca {
     private boolean primeiroMovimento;
 
-    public Torre(String cor) {
-        super(cor);
+    public Torre(String cor, Posicao posicao) {
+        super(cor, posicao);
     }
 
     @Override
@@ -41,9 +41,9 @@ public class Torre extends Peca {
     @Override
     public String toString() {
         if (this.getCor().equals("Preto")) {
-            return "♜";
+            return "TP";
         }
-        return "♖";
+        return "TB";
     }
 
     @Override
