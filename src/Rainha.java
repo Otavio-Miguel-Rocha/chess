@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Rainha extends Peca {
     public Rainha(String cor, Posicao posicao) {
@@ -6,17 +7,17 @@ public class Rainha extends Peca {
     }
 
     @Override
-    public ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {
+    public List<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {
         Posicao posicaoAtual = this.getPosicao();
         int posicaoNoTabuleiro = tabuleiro.getPosicoes().indexOf(posicaoAtual);
-        ArrayList<Posicao> possiveisMovimentos = new ArrayList<>();
+        List<Posicao> possiveisMovimentos = new ArrayList<>();
 
         for (int i = posicaoNoTabuleiro + 8; i < tabuleiro.getPosicoes().size(); i += 8) {
             if (verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos)) {
                 break;
             }
         }
-        for (int i = posicaoNoTabuleiro - 8; i < tabuleiro.getPosicoes().size(); i -= 8) {
+        for (int i = posicaoNoTabuleiro - 8; i >= 0; i -= 8) {
             if (verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos)) {
                 break;
             }
@@ -67,7 +68,10 @@ public class Rainha extends Peca {
 
     @Override
     public String toString2() {
-        return "Rainha " + "\n" +
-                super.toString2() + "\n";
+        if (this.getCor().equals("Preto")){
+            return "Rainha Preta";
+        } else {
+            return "Rainha Branca";
+        }
     }
 }

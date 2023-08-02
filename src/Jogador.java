@@ -1,12 +1,13 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Jogador {
     private String nome;
     private String senha;
     private String cor;
     private double pontos;
-    private ArrayList<Peca> pecas;
-    private ArrayList<Peca> pecasDoAdversario = new ArrayList<>();
+    private List<Peca> pecas;
+    private List<Peca> pecasDoAdversario = new ArrayList<>();
 
     public Jogador(String nome, String senha) {
         this.nome = nome;
@@ -21,7 +22,10 @@ public class Jogador {
         if (pecaAdversaria != null && valida) {
             adversario.pecas.remove(pecaAdversaria);
             pecasDoAdversario.add(pecaAdversaria);
-
+        }
+        //se a peça jogada for um peão, é declaro que o primeiro movimento já é considerado falso
+        if(peca instanceof Peao){
+            ((Peao) peca).setPrimeiroMovimento();
         }
         return valida;
     }
@@ -53,16 +57,15 @@ public class Jogador {
     }
 
     public String getCor(){
-        System.out.println(this.cor);
         return this.cor;
     }
 
 
-    public ArrayList<Peca> getPecas() {
+    public List<Peca> getPecas() {
         return pecas;
     }
 
-    public ArrayList<Peca> getPecasAdversarioAbatidas() {
+    public List<Peca> getPecasAdversarioAbatidas() {
         return pecasDoAdversario;
     }
 }

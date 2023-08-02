@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Bispo extends Peca {
 
@@ -7,10 +8,10 @@ public class Bispo extends Peca {
     }
 
     @Override
-    public ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {
+    public List<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {
         Posicao posicaoAtual = this.getPosicao();
         int posicaoNoTabuleiro = tabuleiro.getPosicoes().indexOf(posicaoAtual);
-        ArrayList<Posicao> possiveisMovimentos = new ArrayList<>();
+        List<Posicao> possiveisMovimentos = new ArrayList<>();
         //if ternário
         for (int i = (validaExtremidade(posicaoNoTabuleiro) ? 64 : posicaoNoTabuleiro + 7); i < tabuleiro.getPosicoes().size(); i += 7) {
             if (verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos) || validaExtremidade(i)) {
@@ -45,7 +46,10 @@ public class Bispo extends Peca {
 
     @Override
     public String toString2() {
-        return "Bispo " + "\n" +
-                super.toString2() + "\n";
+        if (this.getCor().equals("Preto")){
+            return "Bispo Preto";
+        } else {
+            return "Bispo Branco";
+        }
     }
 }

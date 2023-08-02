@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Peca {
     private String cor;
@@ -9,11 +10,13 @@ public abstract class Peca {
         this.posicao = posicao;
     }
 
-    public boolean verificaPeca(Posicao posicao, ArrayList<Posicao> possiveisMovimentos) {
+    public boolean verificaPeca(Posicao posicao, List<Posicao> possiveisMovimentos) {
+        //VERIFICA SE ESTÁ VAZIA A POSIÇÃO, SE TIVER ADICIONA
         if (posicao.getPeca() == null) {
             possiveisMovimentos.add(posicao);
             return false;
         }
+        //VERIFICA SE EXISTE UMA PEÇA DE OUTRA COR NA POSIÇÃO
         if (!posicao.getPeca().getCor().equals(this.getCor())) {
             possiveisMovimentos.add(posicao);
         }
@@ -22,9 +25,11 @@ public abstract class Peca {
     }
 
     public boolean mover(Tabuleiro tabuleiro, Posicao posicao) {
-        ArrayList<Posicao> possiveisPosicoes = possiveisMovimentos(tabuleiro);
+        List<Posicao> possiveisPosicoes = possiveisMovimentos(tabuleiro);
+
         for (Posicao posicaoPossivel : possiveisPosicoes) {
             if (posicaoPossivel == posicao) {
+                teste(tabuleiro.getPosicoes(), posicao, this);
                 // Atribui a peça para a nova posição no tabuleiro
                 posicao.setPeca(this);
                 // Remove a peça da posição anterior no tabuleiro
@@ -37,11 +42,26 @@ public abstract class Peca {
         return false;
     }
 
+    private void teste(List<Posicao> posicoesAtuais, Posicao posicao, Peca peca){
+        List<Posicao> copiaTabuleiro = new ArrayList<>();
+        for (int i = 0; i < 64; i++) {
+            if(posicoesAtuais.get(i) != posicao){
+                if(posicoesAtuais.get(i).getPeca() == peca){
+
+                }
+                copiaTabuleiro.add(posicoesAtuais.get(i));
+            } else{
+                //caso seja igual a posição
+
+            }
+        }
+    }
+
     public boolean validaExtremidade(int posicaoNoTabuleiro) {
         return posicaoNoTabuleiro % 8 == 0;
     }
 
-    public abstract ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro);
+    public abstract List<Posicao> possiveisMovimentos(Tabuleiro tabuleiro);
 
 
     public Posicao getPosicao() {

@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -11,25 +10,15 @@ public class Main {
     public static void main(String[] args) {
         definicoesPreJogo();
         boolean fimDeJogo = false;
-        for ( int i = 0 ; !fimDeJogo; i++ ) {
+        for (int i = 0; !fimDeJogo; i++) {
             tabuleiro();
-            if(i % 2 == 0){
-                System.out.println( jogadorBrancas.getNome() + " é a sua vez!");
+            if (i % 2 == 0) {
+                System.out.println(jogadorBrancas.getNome() + " é a sua vez!");
                 jogada(jogadorBrancas);
             } else {
-                System.out.println( jogadorPretas.getNome() + " é a sua vez!");
+                System.out.println(jogadorPretas.getNome() + " é a sua vez!");
                 jogada(jogadorPretas);
             }
-//            Peca peca = jogadorBrancas.getPecas().get(escolha);
-//            System.out.println(peca);
-//            //Escolha da posição
-//            ArrayList<Posicao> posicoes = peca.possiveisMovimentos(tabuleiro);
-//            System.out.println(posicoes);
-//            int escolherPosicao = sc.nextInt();
-//            Posicao posicao = posicoes.get(escolherPosicao);
-//            // Movimentação da peça escolhida para a posiçaõ desejada
-//            jogadorBrancas.moverPeca(peca, posicao, tabuleiro, jogadorPretas);
-//            validarVitoria(jogadorPretas);
         }
     }
 
@@ -44,7 +33,9 @@ public class Main {
         System.out.print("     5      ");
         System.out.print("     6      ");
         System.out.print("     7      ");
-        System.out.print("     8      \n");
+        System.out.print("     8      ");
+        System.out.print("\n--------------------------------------------------------" +
+                "----------------------------------------\n");
         for (Posicao posicao : tabuleiro.getPosicoes()) {
             int posicaoNoTabuleiro = tabuleiro.getPosicoes().indexOf(posicao);
             if (posicaoNoTabuleiro % 8 == 0) {
@@ -102,65 +93,101 @@ public class Main {
         jogadorPretas.setCor("Preto", tabuleiro);
     }
 
-    private static boolean jogada(Jogador jogadorDaVez){
+    private static void jogada(Jogador jogadorDaVez) {
+        Jogador jogadorAdversario = defineJogadorAdversario(jogadorDaVez);
         boolean validaJogada = false;
-        do{
-        //Solicita jogada para o jogador da vez
-        System.out.println("Insira as coordenadas do tabuleiro: (por exemplo: B4)");
-        //faz o request da posição conforme coordenada passada
-        Posicao posicaoInserida = tabuleiro.verificarPosicao(sc.next());
-        //verifica se a coordenada repassada é válida
-        if (posicaoInserida != null) {
-            //Verifica se existe uma peça naquela coordenada.
-            if (posicaoInserida.getPeca() != null) {
-                //Verifica se a peça selecionada é semelhante ao do jogador da vez
-                if (posicaoInserida.getPeca().getCor().equals(jogadorDaVez.getCor())) {
-                    String possiveisMovimentos = "";
-                    //varre a lista e mostra as possíveis jogadas
-                    for (Posicao posicao : posicaoInserida.getPeca().possiveisMovimentos(tabuleiro)) {
-                        if (posicao.getPeca() != null) {
-                            possiveisMovimentos += posicao.getPeca().getClass() + " - " + posicao.getID() + "\n";
+        do {
+            //Solicita jogada para o jogador da vez
+            System.out.println("Insira as coordenadas do tabuleiro: (por exemplo: B4)");
+
+            //faz o request da posição conforme coordenada passada
+            Posicao posicaoInserida = tabuleiro.verificarPosicao(sc.next());
+
+            //verifica se a coordenada repassada é válida
+            if (posicaoInserida != null) {
+                //Verifica se existe uma peça naquela coordenada.
+
+                Peca pecaSelecionada = posicaoInserida.getPeca();
+                if (pecaSelecionada != null) {
+                    //Verifica se a peça selecionada é semelhante ao do jogador da vez e mostra para o usuário
+                    System.out.println(pecaSelecionada.toString2());
+
+                    if (pecaSelecionada.getCor().equals(jogadorDaVez.getCor())) {
+
+                        String possiveisMovimentos = listaPossiveisMovimentos(pecaSelecionada);
+
+                        //verifica se existe algum possível movimento, verificando se a String foi alteradas
+                        if (possiveisMovimentos == "") {
+                            System.out.println("Essa peça não possui nenhum possível movimento.");
                         } else {
-                            possiveisMovimentos += "Espaço Vazio - " + posicao.getID() + "\n";
+                            //chama a função que pede e executa o movimento, caso de erro
+                            //essa função retorna true ou false, no true ela valida a jogada.
+                            validaJogada = posicaoFinalEscolhaEExecucao(possiveisMovimentos, pecaSelecionada,
+                                    jogadorDaVez, jogadorAdversario);
                         }
-                    }
-                    //verifica se existe algum possível movimento, verificando se a String foi alterada
-                    if (possiveisMovimentos == "") {
-                        System.out.println("Essa peça não possui nenhum possível movimento.");
                     } else {
-                        //Solicita a posição final da peça selecionada
-                        System.out.println("Insira a coordenada para a jogada da peça: ");
-                        System.out.println(possiveisMovimentos);
-                        Posicao posicaoMovida = tabuleiro.verificarPosicao(sc.next());
-                        //Verifica se a coordenada passada é correta
-                        if (posicaoMovida != null) {
-                            //Chama mover peça que faz a função de analisar e executar o movimento se for possível
-                            if (jogadorDaVez.moverPeca(posicaoInserida.getPeca(), posicaoMovida,
-                                    tabuleiro, jogadorPretas)) {
-                                //Jogada Confirmada
-                                System.out.println("Peça Movida");
-                                validaJogada = true;
-                            } else {
-                                //Jogada Inválida
-                                System.out.println("Jogada inválida.");
-                            }
-                        } else {
-                            System.out.println("Posicão Inválida");
-                        }
+                        System.out.println("Essa é a peça do adversário.");
                     }
                 } else {
-                    System.out.println("Essa é a peça do adversário.");
+                    System.out.println("Nenhuma peça para ser movimentada na posição.");
                 }
             } else {
-                System.out.println("Nenhuma peça para ser movimentada na posição.");
+                System.out.println("Posição não existente!");
             }
-        } else {
-            System.out.println("Posição não existente!");
-        }
-        }while (!validaJogada);
-        return true;
+        } while (!validaJogada);
     }
 
+    private static Jogador defineJogadorAdversario(Jogador jogadorDaVez) {
+        //Recebe o jogador da vez e devolve o jogador ao contrário
+        if (jogadorDaVez == jogadorBrancas) {
+            return jogadorPretas;
+        } else {
+            return jogadorBrancas;
+        }
+    }
+
+    private static String listaPossiveisMovimentos(Peca pecaDaPosicao) {
+        String possiveisMovimentos = "";
+        //varre a lista e mostra as possíveis jogadas
+        for (Posicao posicao : pecaDaPosicao.possiveisMovimentos(tabuleiro)) {
+            if (posicao.getPeca() != null) {
+                possiveisMovimentos += posicao.getPeca().toString2() + " - " + posicao.getID() + "\n";
+            } else {
+                possiveisMovimentos += "Espaço Vazio - " + posicao.getID() + "\n";
+            }
+        }
+        return possiveisMovimentos;
+    }
+
+    private static boolean posicaoFinalEscolhaEExecucao(String possiveisMovimentos, Peca pecaSelecionada,
+                                                        Jogador jogadorDaVez, Jogador jogadorAdversario) {
+        //Solicita a posição final da peça selecionada
+        System.out.println("Insira a coordenada para a jogada da peça: ");
+        System.out.println(possiveisMovimentos);
+        System.out.println("0 - Cancelar e selecionar outra peça.");
+        String escolha = sc.next();
+        Posicao posicaoMovida = tabuleiro.verificarPosicao(escolha);
+        //Verifica se a coordenada passada é correta
+        if (posicaoMovida != null) {
+            //Chama mover peça que faz a função de analisar e executar o movimento se for possível
+            if (jogadorDaVez.moverPeca(pecaSelecionada, posicaoMovida,
+                    tabuleiro, jogadorAdversario)) {
+                //Jogada Confirmada
+                System.out.println("Peça Movida");
+                return true;
+            } else {
+                //Jogada Inválida
+                System.out.println("Jogada inválida.");
+            }
+        } else {
+            if(escolha.equals("0")){
+                System.out.println(pecaSelecionada.toString2() + " desselecionado(a)");
+            } else{
+                System.out.println("Posicão Inválida");
+            }
+        }
+        return false;
+    }
 
     private static boolean validarVitoria(Jogador adversario) {
         for (Peca peca : adversario.getPecas()) {

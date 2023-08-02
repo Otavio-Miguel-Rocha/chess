@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Rei extends Peca {
     private boolean primeiroMovimento;
@@ -8,10 +9,10 @@ public class Rei extends Peca {
     }
 
     @Override
-    public ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {
+    public List<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {
         Posicao posicaoAtual = this.getPosicao();
         int posicaoNoTabuleiro = tabuleiro.getPosicoes().indexOf(posicaoAtual);
-        ArrayList<Posicao> possiveisMovimentos = new ArrayList<>();
+        List<Posicao> possiveisMovimentos = new ArrayList<>();
 
         for (Posicao posicao : tabuleiro.getPosicoes()) {
             int indice = tabuleiro.getPosicoes().indexOf(posicao);
@@ -43,7 +44,7 @@ public class Rei extends Peca {
                 }
             }
         }
-        return null;
+        return possiveisMovimentos;
     }
 
     @Override
@@ -56,7 +57,10 @@ public class Rei extends Peca {
 
     @Override
     public String toString2() {
-        return "Rei " + "\n" +
-                super.toString2() + "\n";
+        if (this.getCor().equals("Preto")){
+            return "Rei Preto";
+        } else {
+            return "Rei Branco";
+        }
     }
 }

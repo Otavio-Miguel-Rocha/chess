@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Torre extends Peca {
     private boolean primeiroMovimento;
@@ -8,10 +9,10 @@ public class Torre extends Peca {
     }
 
     @Override
-    public ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {
+    public List<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {
         Posicao posicaoAtual = this.getPosicao();
         int posicaoNoTabuleiro = tabuleiro.getPosicoes().indexOf(posicaoAtual);
-        ArrayList<Posicao> possiveisMovimentos = new ArrayList<>();
+        List<Posicao> possiveisMovimentos = new ArrayList<>();
 
         for (int i = posicaoNoTabuleiro + 8; i < tabuleiro.getPosicoes().size(); i += 8) {
             if (verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos)) {
@@ -48,7 +49,10 @@ public class Torre extends Peca {
 
     @Override
     public String toString2() {
-        return "Torre " + "\n" +
-                super.toString2() + "\n";
+        if (this.getCor().equals("Preto")){
+            return "Torre Preta";
+        } else {
+            return "Torre Branca";
+        }
     }
 }

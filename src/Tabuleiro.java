@@ -1,7 +1,8 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Tabuleiro {
-    private ArrayList<Posicao> listaPosicoes = new ArrayList<>();
+    private List<Posicao> listaPosicoes = new ArrayList<>();
 
     public Tabuleiro() {
         for (int i = 0; i < 64; i++) {
@@ -117,7 +118,7 @@ public class Tabuleiro {
 
 
 
-    public ArrayList<Posicao> getPosicoes() {
+    public List<Posicao> getPosicoes() {
         return listaPosicoes;
     }
 }

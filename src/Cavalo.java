@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Cavalo extends Peca {
     public Cavalo(String cor, Posicao posicao) {
@@ -6,8 +7,8 @@ public class Cavalo extends Peca {
     }
 
     @Override
-    public ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {
-        ArrayList<Posicao> possiveisMovimentos = new ArrayList<>();
+    public List<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {
+        List<Posicao> possiveisMovimentos = new ArrayList<>();
         Posicao posicaoAtual = this.getPosicao();
         int posicaoNoTabuleiro = tabuleiro.getPosicoes().indexOf(posicaoAtual);
 
@@ -21,37 +22,31 @@ public class Cavalo extends Peca {
                     indice == posicaoNoTabuleiro + 10 ||
                     indice == posicaoNoTabuleiro + 15 ||
                     indice == posicaoNoTabuleiro + 17) {
-                //coluna H
-                if (validaExtremidade(posicaoNoTabuleiro + 1) && !(
-                        indice == posicaoNoTabuleiro - 15 ||
-                                indice == posicaoNoTabuleiro - 6 ||
-                                indice == posicaoNoTabuleiro + 10 ||
-                                indice == posicaoNoTabuleiro + 17
-                )) {
-                    verificaPeca(posicao, possiveisMovimentos);
+                //coluna 8
+                if (validaExtremidade(posicaoNoTabuleiro + 1)) {
+                    if(!(indice == posicaoNoTabuleiro - 15 || indice == posicaoNoTabuleiro - 6 ||
+                            indice == posicaoNoTabuleiro + 10 || indice == posicaoNoTabuleiro + 17)){
+                        verificaPeca(posicao, possiveisMovimentos);
+                    }
                 }
-                //coluna a
-                else if (validaExtremidade(posicaoNoTabuleiro) && !(
-                        indice == posicaoNoTabuleiro - 17 ||
-                                indice == posicaoNoTabuleiro - 10 ||
-                                indice == posicaoNoTabuleiro + 6 ||
-                                indice == posicaoNoTabuleiro + 15
-                )) {
-                    verificaPeca(posicao, possiveisMovimentos);
+                //coluna 1
+                else if (validaExtremidade(posicaoNoTabuleiro)) {
+                    if(!(indice == posicaoNoTabuleiro - 17 || indice == posicaoNoTabuleiro - 10 ||
+                            indice == posicaoNoTabuleiro + 6 || indice == posicaoNoTabuleiro + 15)){
+                        verificaPeca(posicao, possiveisMovimentos);
+                    }
                 }
-                //Coluna B
-                else if (validaExtremidade(posicaoNoTabuleiro - 1) && !(
-                        indice == posicaoNoTabuleiro - 10 ||
-                                indice == posicaoNoTabuleiro + 6
-                )) {
-                    verificaPeca(posicao, possiveisMovimentos);
+                //Coluna 2
+                else if (validaExtremidade(posicaoNoTabuleiro - 1)) {
+                    if(!(indice == posicaoNoTabuleiro - 10 || indice == posicaoNoTabuleiro + 6)){
+                        verificaPeca(posicao, possiveisMovimentos);
+                    }
                 }
-                //Coluna G
-                else if (validaExtremidade(posicaoNoTabuleiro + 2) && !(
-                        indice == posicaoNoTabuleiro - 15 ||
-                                indice == posicaoNoTabuleiro + 17
-                )) {
-                    verificaPeca(posicao, possiveisMovimentos);
+                //Coluna 7
+                else if (validaExtremidade(posicaoNoTabuleiro + 2)) {
+                    if(!(indice == posicaoNoTabuleiro - 15 || indice == posicaoNoTabuleiro + 10)){
+                        verificaPeca(posicao, possiveisMovimentos);
+                    }
                 }
                 //não é de canto
                 else {
@@ -72,7 +67,10 @@ public class Cavalo extends Peca {
 
     @Override
     public String toString2() {
-        return "Cavalo " + "\n" +
-                super.toString2() + "\n";
+        if (this.getCor().equals("Preto")){
+            return "Cavalo Preto";
+        } else {
+            return "Cavalo Branco";
+        }
     }
 }

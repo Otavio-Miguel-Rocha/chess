@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 public class Peao extends Peca {
     private boolean primeiroMovimento = true;
@@ -8,12 +9,12 @@ public class Peao extends Peca {
     }
 
     @Override
-    public ArrayList<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {
-        ArrayList<Posicao> possiveisMovimentos = new ArrayList<>();
+    public List<Posicao> possiveisMovimentos(Tabuleiro tabuleiro) {
+        List<Posicao> possiveisMovimentos = new ArrayList<>();
         Posicao posicaoAtual = this.getPosicao();
         int posicaoNoTabuleiro = tabuleiro.getPosicoes().indexOf(posicaoAtual);
 
-        ArrayList<Posicao> posicoesTabuleiro = tabuleiro.getPosicoes();
+        List<Posicao> posicoesTabuleiro = tabuleiro.getPosicoes();
         if (this.getCor().equals("Preto")) {
             if (posicoesTabuleiro.get(posicaoNoTabuleiro + 8).getPeca() == null) {
                 possiveisMovimentos.add(posicoesTabuleiro.get(posicaoNoTabuleiro + 8));
@@ -25,8 +26,8 @@ public class Peao extends Peca {
             }
             if (posicoesTabuleiro.get(posicaoNoTabuleiro + 9).getPeca() != null
                     && !validaExtremidade(posicaoNoTabuleiro + 1)) {
-                if (posicoesTabuleiro.get(posicaoNoTabuleiro - 9).getPeca().getCor().equals("Branco")) {
-                    possiveisMovimentos.add(posicoesTabuleiro.get(posicaoNoTabuleiro - 9));
+                if (posicoesTabuleiro.get(posicaoNoTabuleiro + 9).getPeca().getCor().equals("Branco")) {
+                    possiveisMovimentos.add(posicoesTabuleiro.get(posicaoNoTabuleiro + 9));
                 }
             }
             if (posicoesTabuleiro.get(posicaoNoTabuleiro + 7).getPeca() != null
@@ -60,6 +61,12 @@ public class Peao extends Peca {
         return possiveisMovimentos;
     }
 
+
+    public void setPrimeiroMovimento(){
+        this.primeiroMovimento = false;
+    }
+
+
     @Override
     public String toString() {
         if (this.getCor().equals("Preto")) {
@@ -70,7 +77,10 @@ public class Peao extends Peca {
 
     @Override
     public String toString2() {
-        return "Peão " + "\n" +
-                super.toString2() + "\n";
+        if (this.getCor().equals("Preto")){
+            return "Peão Preto";
+        } else {
+            return "Peão Branco";
+        }
     }
 }
