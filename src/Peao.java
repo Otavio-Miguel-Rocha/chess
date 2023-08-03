@@ -4,8 +4,8 @@ import java.util.List;
 public class Peao extends Peca {
     private boolean primeiroMovimento = true;
 
-    public Peao(String cor, Posicao posicao) {
-        super(cor, posicao);
+    public Peao(int id, String cor, Posicao posicao) {
+        super(id, cor, posicao);
     }
 
     @Override

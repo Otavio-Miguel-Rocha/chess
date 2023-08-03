@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Rainha extends Peca {
-    public Rainha(String cor, Posicao posicao) {
-        super(cor, posicao);
+    public Rainha(int id, String cor, Posicao posicao) {
+        super(id, cor, posicao);
     }
 
     @Override

@@ -2,10 +2,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Peca {
+    private int id;
     private String cor;
     private Posicao posicao;
 
-    public Peca(String cor, Posicao posicao) {
+    public Peca(int id, String cor, Posicao posicao) {
+        this.id = id;
         this.cor = cor;
         this.posicao = posicao;
     }
@@ -29,8 +31,7 @@ public abstract class Peca {
 
         for (Posicao posicaoPossivel : possiveisPosicoes) {
             if (posicaoPossivel == posicao) {
-                teste(tabuleiro.getPosicoes(), posicao, this);
-                // Atribui a peça para a nova posição no tabuleiro
+                //Atribui a peça para a nova posição no tabuleiro
                 posicao.setPeca(this);
                 // Remove a peça da posição anterior no tabuleiro
                 this.posicao.setPeca(null);
@@ -42,27 +43,16 @@ public abstract class Peca {
         return false;
     }
 
-    private void teste(List<Posicao> posicoesAtuais, Posicao posicao, Peca peca){
-        List<Posicao> copiaTabuleiro = new ArrayList<>();
-        for (int i = 0; i < 64; i++) {
-            if(posicoesAtuais.get(i) != posicao){
-                if(posicoesAtuais.get(i).getPeca() == peca){
-
-                }
-                copiaTabuleiro.add(posicoesAtuais.get(i));
-            } else{
-                //caso seja igual a posição
-
-            }
-        }
-    }
-
     public boolean validaExtremidade(int posicaoNoTabuleiro) {
         return posicaoNoTabuleiro % 8 == 0;
     }
 
     public abstract List<Posicao> possiveisMovimentos(Tabuleiro tabuleiro);
 
+
+    public int getId() {
+        return id;
+    }
 
     public Posicao getPosicao() {
         return posicao;

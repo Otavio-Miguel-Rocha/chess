@@ -4,8 +4,8 @@ import java.util.List;
 public class Torre extends Peca {
     private boolean primeiroMovimento;
 
-    public Torre(String cor, Posicao posicao) {
-        super(cor, posicao);
+    public Torre(int id, String cor, Posicao posicao) {
+        super(id, cor, posicao);
     }
 
     @Override

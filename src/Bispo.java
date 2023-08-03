@@ -3,8 +3,8 @@ import java.util.List;
 
 public class Bispo extends Peca {
 
-    public Bispo(String cor, Posicao posicao) {
-        super(cor, posicao);
+    public Bispo(int id,String cor, Posicao posicao) {
+        super(id, cor, posicao);
     }
 
     @Override

@@ -4,8 +4,8 @@ import java.util.List;
 public class Rei extends Peca {
     private boolean primeiroMovimento;
 
-    public Rei(String cor, Posicao posicao) {
-        super(cor, posicao);
+    public Rei(int id, String cor, Posicao posicao) {
+        super(id, cor, posicao);
     }
 
     @Override

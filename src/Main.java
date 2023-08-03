@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 public class Main {
 
-    static Scanner sc = new Scanner(System.in);
-    static Jogador jogadorBrancas = new Jogador("Jorge", "Senh@123");
-    static Jogador jogadorPretas = new Jogador("Wilson", "wilson");
-    static Tabuleiro tabuleiro = new Tabuleiro();
+    static private Scanner sc = new Scanner(System.in);
+    static private Jogador jogadorBrancas = new Jogador("Jorge", "Senh@123");
+    static private Jogador jogadorPretas = new Jogador("Wilson", "wilson");
+    static private Tabuleiro tabuleiroVisual = new Tabuleiro();
 
     public static void main(String[] args) {
         definicoesPreJogo();
@@ -18,6 +18,13 @@ public class Main {
             } else {
                 System.out.println(jogadorPretas.getNome() + " é a sua vez!");
                 jogada(jogadorPretas);
+            }
+            if(validarVitoria(jogadorPretas)){
+                System.out.println("Parabéns " + jogadorBrancas.getNome());
+                fimDeJogo = true;
+            } else if(validarVitoria(jogadorBrancas)){
+                System.out.println("Parabéns " + jogadorPretas.getNome());
+                fimDeJogo = true;
             }
         }
     }
@@ -36,8 +43,8 @@ public class Main {
         System.out.print("     8      ");
         System.out.print("\n--------------------------------------------------------" +
                 "----------------------------------------\n");
-        for (Posicao posicao : tabuleiro.getPosicoes()) {
-            int posicaoNoTabuleiro = tabuleiro.getPosicoes().indexOf(posicao);
+        for (Posicao posicao : tabuleiroVisual.getPosicoes()) {
+            int posicaoNoTabuleiro = tabuleiroVisual.getPosicoes().indexOf(posicao);
             if (posicaoNoTabuleiro % 8 == 0) {
                 System.out.print("|  ");
             }
@@ -89,50 +96,61 @@ public class Main {
     }
 
     private static void definicoesPreJogo() {
-        jogadorBrancas.setCor("Branco", tabuleiro);
-        jogadorPretas.setCor("Preto", tabuleiro);
+        jogadorBrancas.setCor("Branco", tabuleiroVisual);
+        jogadorPretas.setCor("Preto", tabuleiroVisual);
     }
 
     private static void jogada(Jogador jogadorDaVez) {
         Jogador jogadorAdversario = defineJogadorAdversario(jogadorDaVez);
         boolean validaJogada = false;
         do {
+            System.out.println("""
+                    -Escreva 'Empate' para propor empate
+                    -Escreva 'Desistir' para desistir """);
             //Solicita jogada para o jogador da vez
             System.out.println("Insira as coordenadas do tabuleiro: (por exemplo: B4)");
+            String decisao = sc.next();
+            if(decisao.equals("Empate")){
+                jogadorDaVez.proporEmpate(jogadorDaVez);
+            }
+            else if(decisao.equals("Desistir")){
+                jogadorDaVez.desistir();
+                validaJogada = true;
+            } else {
+                //faz o request da posição conforme coordenada passada
+                Posicao posicaoInserida = tabuleiroVisual.verificarPosicao(decisao);
 
-            //faz o request da posição conforme coordenada passada
-            Posicao posicaoInserida = tabuleiro.verificarPosicao(sc.next());
+                //verifica se a coordenada repassada é válida
+                if (posicaoInserida != null) {
+                    //Verifica se existe uma peça naquela coordenada.
 
-            //verifica se a coordenada repassada é válida
-            if (posicaoInserida != null) {
-                //Verifica se existe uma peça naquela coordenada.
+                    Peca pecaSelecionada = posicaoInserida.getPeca();
+                    if (pecaSelecionada != null) {
+                        //Verifica se a peça selecionada é semelhante ao do jogador da vez e mostra para o usuário
+                        System.out.println(pecaSelecionada.toString2());
 
-                Peca pecaSelecionada = posicaoInserida.getPeca();
-                if (pecaSelecionada != null) {
-                    //Verifica se a peça selecionada é semelhante ao do jogador da vez e mostra para o usuário
-                    System.out.println(pecaSelecionada.toString2());
+                        if (pecaSelecionada.getCor().equals(jogadorDaVez.getCor())) {
 
-                    if (pecaSelecionada.getCor().equals(jogadorDaVez.getCor())) {
+                            String possiveisMovimentos = listaPossiveisMovimentos(pecaSelecionada);
 
-                        String possiveisMovimentos = listaPossiveisMovimentos(pecaSelecionada);
-
-                        //verifica se existe algum possível movimento, verificando se a String foi alteradas
-                        if (possiveisMovimentos == "") {
-                            System.out.println("Essa peça não possui nenhum possível movimento.");
+                            //verifica se existe algum possível movimento, verificando se a String foi alteradas
+                            if (possiveisMovimentos == "") {
+                                System.out.println("Essa peça não possui nenhum possível movimento.");
+                            } else {
+                                //chama a função que pede e executa o movimento, caso de erro
+                                //essa função retorna true ou false, no true ela valida a jogada.
+                                validaJogada = posicaoFinalEscolhaEExecucao(possiveisMovimentos, pecaSelecionada,
+                                        jogadorDaVez, jogadorAdversario);
+                            }
                         } else {
-                            //chama a função que pede e executa o movimento, caso de erro
-                            //essa função retorna true ou false, no true ela valida a jogada.
-                            validaJogada = posicaoFinalEscolhaEExecucao(possiveisMovimentos, pecaSelecionada,
-                                    jogadorDaVez, jogadorAdversario);
+                            System.out.println("Essa é a peça do adversário.");
                         }
                     } else {
-                        System.out.println("Essa é a peça do adversário.");
+                        System.out.println("Nenhuma peça para ser movimentada na posição.");
                     }
                 } else {
-                    System.out.println("Nenhuma peça para ser movimentada na posição.");
+                    System.out.println("Posição não existente!");
                 }
-            } else {
-                System.out.println("Posição não existente!");
             }
         } while (!validaJogada);
     }
@@ -149,7 +167,7 @@ public class Main {
     private static String listaPossiveisMovimentos(Peca pecaDaPosicao) {
         String possiveisMovimentos = "";
         //varre a lista e mostra as possíveis jogadas
-        for (Posicao posicao : pecaDaPosicao.possiveisMovimentos(tabuleiro)) {
+        for (Posicao posicao : pecaDaPosicao.possiveisMovimentos(tabuleiroVisual)) {
             if (posicao.getPeca() != null) {
                 possiveisMovimentos += posicao.getPeca().toString2() + " - " + posicao.getID() + "\n";
             } else {
@@ -166,12 +184,12 @@ public class Main {
         System.out.println(possiveisMovimentos);
         System.out.println("0 - Cancelar e selecionar outra peça.");
         String escolha = sc.next();
-        Posicao posicaoMovida = tabuleiro.verificarPosicao(escolha);
+        Posicao posicaoMovida = tabuleiroVisual.verificarPosicao(escolha);
         //Verifica se a coordenada passada é correta
         if (posicaoMovida != null) {
             //Chama mover peça que faz a função de analisar e executar o movimento se for possível
             if (jogadorDaVez.moverPeca(pecaSelecionada, posicaoMovida,
-                    tabuleiro, jogadorAdversario)) {
+                    tabuleiroVisual, jogadorAdversario)) {
                 //Jogada Confirmada
                 System.out.println("Peça Movida");
                 return true;
@@ -180,9 +198,9 @@ public class Main {
                 System.out.println("Jogada inválida.");
             }
         } else {
-            if(escolha.equals("0")){
+            if (escolha.equals("0")) {
                 System.out.println(pecaSelecionada.toString2() + " desselecionado(a)");
-            } else{
+            } else {
                 System.out.println("Posicão Inválida");
             }
         }

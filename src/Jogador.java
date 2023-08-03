@@ -30,11 +30,18 @@ public class Jogador {
         return valida;
     }
 
-    public boolean proporEmpate(Jogador jogador) {
+    public boolean proporEmpate(Jogador jogadorAdversario) {
         return true;
     }
 
     public void desistir() {
+        //perguntar romário
+        this.getPecas().removeIf(peca -> peca instanceof Rei);
+//        for ( Peca peca : this.getPecas() ) {
+//            if(peca instanceof Rei){
+//                this.getPecas().remove(peca);
+//            }
+//        }
     }
 
 

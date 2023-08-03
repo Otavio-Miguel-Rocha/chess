@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cavalo extends Peca {
-    public Cavalo(String cor, Posicao posicao) {
-        super(cor, posicao);
+    public Cavalo(int id, String cor, Posicao posicao) {
+        super(id, cor, posicao);
     }
 
     @Override
@@ -24,27 +24,27 @@ public class Cavalo extends Peca {
                     indice == posicaoNoTabuleiro + 17) {
                 //coluna 8
                 if (validaExtremidade(posicaoNoTabuleiro + 1)) {
-                    if(!(indice == posicaoNoTabuleiro - 15 || indice == posicaoNoTabuleiro - 6 ||
-                            indice == posicaoNoTabuleiro + 10 || indice == posicaoNoTabuleiro + 17)){
+                    if (!(indice == posicaoNoTabuleiro - 15 || indice == posicaoNoTabuleiro - 6 ||
+                            indice == posicaoNoTabuleiro + 10 || indice == posicaoNoTabuleiro + 17)) {
                         verificaPeca(posicao, possiveisMovimentos);
                     }
                 }
                 //coluna 1
                 else if (validaExtremidade(posicaoNoTabuleiro)) {
-                    if(!(indice == posicaoNoTabuleiro - 17 || indice == posicaoNoTabuleiro - 10 ||
-                            indice == posicaoNoTabuleiro + 6 || indice == posicaoNoTabuleiro + 15)){
+                    if (!(indice == posicaoNoTabuleiro - 17 || indice == posicaoNoTabuleiro - 10 ||
+                            indice == posicaoNoTabuleiro + 6 || indice == posicaoNoTabuleiro + 15)) {
                         verificaPeca(posicao, possiveisMovimentos);
                     }
                 }
                 //Coluna 2
                 else if (validaExtremidade(posicaoNoTabuleiro - 1)) {
-                    if(!(indice == posicaoNoTabuleiro - 10 || indice == posicaoNoTabuleiro + 6)){
+                    if (!(indice == posicaoNoTabuleiro - 10 || indice == posicaoNoTabuleiro + 6)) {
                         verificaPeca(posicao, possiveisMovimentos);
                     }
                 }
                 //Coluna 7
                 else if (validaExtremidade(posicaoNoTabuleiro + 2)) {
-                    if(!(indice == posicaoNoTabuleiro - 15 || indice == posicaoNoTabuleiro + 10)){
+                    if (!(indice == posicaoNoTabuleiro - 15 || indice == posicaoNoTabuleiro + 10)) {
                         verificaPeca(posicao, possiveisMovimentos);
                     }
                 }
@@ -67,7 +67,7 @@ public class Cavalo extends Peca {
 
     @Override
     public String toString2() {
-        if (this.getCor().equals("Preto")){
+        if (this.getCor().equals("Preto")) {
             return "Cavalo Preto";
         } else {
             return "Cavalo Branco";
