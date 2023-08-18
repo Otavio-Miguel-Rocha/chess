@@ -1,8 +1,13 @@
+package Partida.Tabuleiro.Pecas;
+
+import Partida.Tabuleiro.Posicao;
+import Partida.Tabuleiro.Tabuleiro;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Torre extends Peca {
-    private boolean primeiroMovimento;
+    private boolean primeiroMovimento = true;
 
     public Torre(int id, String cor, Posicao posicao) {
         super(id, cor, posicao);
@@ -13,6 +18,7 @@ public class Torre extends Peca {
         Posicao posicaoAtual = this.getPosicao();
         int posicaoNoTabuleiro = tabuleiro.getPosicoes().indexOf(posicaoAtual);
         List<Posicao> possiveisMovimentos = new ArrayList<>();
+
 
         for (int i = posicaoNoTabuleiro + 8; i < tabuleiro.getPosicoes().size(); i += 8) {
             if (verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos)) {
@@ -39,6 +45,14 @@ public class Torre extends Peca {
         return possiveisMovimentos;
     }
 
+    public boolean isPrimeiroMovimento() {
+        return primeiroMovimento;
+    }
+
+    public void setPrimeiroMovimento() {
+        this.primeiroMovimento = false;
+    }
+
     @Override
     public String toString() {
         if (this.getCor().equals("Preto")) {
@@ -49,7 +63,7 @@ public class Torre extends Peca {
 
     @Override
     public String toString2() {
-        if (this.getCor().equals("Preto")){
+        if (this.getCor().equals("Preto")) {
             return "Torre Preta";
         } else {
             return "Torre Branca";

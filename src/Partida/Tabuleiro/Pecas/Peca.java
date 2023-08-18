@@ -1,3 +1,8 @@
+package Partida.Tabuleiro.Pecas;
+
+import Partida.Tabuleiro.Posicao;
+import Partida.Tabuleiro.Tabuleiro;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,13 +28,10 @@ public abstract class Peca {
             possiveisMovimentos.add(posicao);
         }
         return true;
-
     }
 
-    public boolean mover(Tabuleiro tabuleiro, Posicao posicao) {
-        List<Posicao> possiveisPosicoes = possiveisMovimentos(tabuleiro);
-
-        for (Posicao posicaoPossivel : possiveisPosicoes) {
+    public boolean mover(Posicao posicao, List<Posicao> possiveisMovimentos) {
+        for (Posicao posicaoPossivel : possiveisMovimentos) {
             if (posicaoPossivel == posicao) {
                 //Atribui a peça para a nova posição no tabuleiro
                 posicao.setPeca(this);
@@ -49,17 +51,20 @@ public abstract class Peca {
 
     public abstract List<Posicao> possiveisMovimentos(Tabuleiro tabuleiro);
 
+    public void setPosicao(Posicao posicao) {
+        this.posicao = posicao;
+    }
 
     public int getId() {
         return id;
     }
 
     public Posicao getPosicao() {
-        return posicao;
+        return this.posicao;
     }
 
     public String getCor() {
-        return cor;
+        return this.cor;
     }
 
     public String toString2() {
@@ -68,4 +73,6 @@ public abstract class Peca {
                 "Posicao = " + posicao.getID() + "\n" +
                 '}';
     }
+
 }
+

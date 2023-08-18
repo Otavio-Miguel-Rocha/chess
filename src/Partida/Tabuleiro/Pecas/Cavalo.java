@@ -1,3 +1,8 @@
+package Partida.Tabuleiro.Pecas;
+
+import Partida.Tabuleiro.Posicao;
+import Partida.Tabuleiro.Tabuleiro;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +49,7 @@ public class Cavalo extends Peca {
                 }
                 //Coluna 7
                 else if (validaExtremidade(posicaoNoTabuleiro + 2)) {
-                    if (!(indice == posicaoNoTabuleiro - 15 || indice == posicaoNoTabuleiro + 10)) {
+                    if (!(indice == posicaoNoTabuleiro - 6 || indice == posicaoNoTabuleiro + 10)) {
                         verificaPeca(posicao, possiveisMovimentos);
                     }
                 }
@@ -74,3 +79,4 @@ public class Cavalo extends Peca {
         }
     }
 }
+

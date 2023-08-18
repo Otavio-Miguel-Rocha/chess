@@ -1,9 +1,14 @@
+package Partida.Tabuleiro.Pecas;
+
+import Partida.Tabuleiro.Posicao;
+import Partida.Tabuleiro.Tabuleiro;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Bispo extends Peca {
 
-    public Bispo(int id,String cor, Posicao posicao) {
+    public Bispo(int id, String cor, Posicao posicao) {
         super(id, cor, posicao);
     }
 
@@ -46,10 +51,11 @@ public class Bispo extends Peca {
 
     @Override
     public String toString2() {
-        if (this.getCor().equals("Preto")){
+        if (this.getCor().equals("Preto")) {
             return "Bispo Preto";
         } else {
             return "Bispo Branco";
         }
     }
 }
+

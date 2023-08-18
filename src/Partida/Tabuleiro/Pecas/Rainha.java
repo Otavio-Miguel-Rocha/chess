@@ -1,4 +1,10 @@
+package Partida.Tabuleiro.Pecas;
+
+import Partida.Tabuleiro.Posicao;
+import Partida.Tabuleiro.Tabuleiro;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Rainha extends Peca {
@@ -11,7 +17,6 @@ public class Rainha extends Peca {
         Posicao posicaoAtual = this.getPosicao();
         int posicaoNoTabuleiro = tabuleiro.getPosicoes().indexOf(posicaoAtual);
         List<Posicao> possiveisMovimentos = new ArrayList<>();
-
         for (int i = posicaoNoTabuleiro + 8; i < tabuleiro.getPosicoes().size(); i += 8) {
             if (verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos)) {
                 break;
@@ -54,8 +59,8 @@ public class Rainha extends Peca {
                 break;
             }
         }
-
         return possiveisMovimentos;
+
     }
 
     @Override
@@ -68,10 +73,11 @@ public class Rainha extends Peca {
 
     @Override
     public String toString2() {
-        if (this.getCor().equals("Preto")){
+        if (this.getCor().equals("Preto")) {
             return "Rainha Preta";
         } else {
             return "Rainha Branca";
         }
     }
 }
+
