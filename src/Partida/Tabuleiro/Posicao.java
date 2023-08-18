@@ -1,6 +1,11 @@
+package Partida.Tabuleiro;
+
+import Partida.Tabuleiro.Pecas.Peca;
+
 public class Posicao {
     private Peca peca;
     private String identificadorPosicao;
+    private boolean roque = false;
 
 
     public void setPeca(Peca peca) {
@@ -20,6 +25,14 @@ public class Posicao {
         return this.identificadorPosicao;
     }
 
+    public boolean isRoque() {
+        return roque;
+    }
+
+    public void setRoque(boolean roque) {
+        this.roque = roque;
+    }
+
     @Override
     public String toString() {
         return "Posicao{" +
@@ -27,3 +40,4 @@ public class Posicao {
                 '}';
     }
 }
+
