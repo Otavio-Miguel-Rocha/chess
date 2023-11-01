@@ -136,24 +136,13 @@ public class Tabuleiro {
     }
 
     public boolean simulaMovimento(Posicao posicao, Peca pecaDaPosicao, Jogador jogadorAdversario) {
-        //ARMAZENA A PEÇA DA POSIÇÃO PARA O ROLLBACK
         Peca pecaTemp = posicao.getPeca();
-
-        //ARMAZENA A POSIÇÃO ATUAL PARA O ROLL BACK
         Posicao posicaoAtual = pecaDaPosicao.getPosicao();
-
-        //SIMULA O MOVIMENTO
         posicao.setPeca(pecaDaPosicao);
         pecaDaPosicao.getPosicao().setPeca(null);
         pecaDaPosicao.setPosicao(posicao);
-
-
-        //PERCORRE A LISTA DE POSICOES DAS PEÇAS ADVERSÁRIAS, VERIFICANDO SE COM O POSSÍVEL MOVIMENTO
-        //O REI ALIADO FICA EM CHEQUE!
         boolean cheque = false;
         for (Peca pecaFor : jogadorAdversario.getPecas()) {
-            //VERIFICA SE NÃO É A PEÇA TEMPORÁRIA, POIS POR MAIS QUE NO TABULEIRO ELA TENHA SIDO ABATIDA
-            //ELA SEGUE NA LISTA DE PEÇAS DO JOGADOR
             if (pecaFor != pecaTemp) {
                 for (Posicao posicaoFor2 : pecaFor.possiveisMovimentos(this)) {
                     if (posicaoFor2.getPeca() != null) {
@@ -164,16 +153,9 @@ public class Tabuleiro {
                 }
             }
         }
-
-        //EXECUTA O ROLL BACK DA SIMULAÇÃO DO MOVIMENTO
-        //COM AS VARIÁVEIS ARMAZENADAS
         posicao.setPeca(pecaTemp);
         pecaDaPosicao.setPosicao(posicaoAtual);
         pecaDaPosicao.getPosicao().setPeca(pecaDaPosicao);
-
-
-        //CASO DURANTE A SIMULAÇÃO, O FOR EACH ENCONTRAR UM POSSÍVEL MOVIMENTO
-        //QUE COINCIDA COM O REI, ELE RETORNARÁ SE AQUELE POSSÍVEL MOVIMENTO CAUSARÁ UM CHEQUE OU NÃO
         if (cheque) {
             return true;
         } else
@@ -182,59 +164,30 @@ public class Tabuleiro {
 
 
     public List<Posicao> filtrarPossiveisMovimentos(Peca pecaDaPosicao, Jogador jogadorAdversario) {
-        //CRIA UMA LISTA QUE SERÁ O RETORNO DO MÉTODO
         List<Posicao> possiveisMovimentosVerificadosCheque = new ArrayList<>();
-
-        //PERCORRE A LISTA DE POSSÍVEIS DA PEÇA
         for (Posicao posicao : pecaDaPosicao.possiveisMovimentos(this)) {
-
-            //EXECUTA A SIMULAÇÃO DO MOVIMENTO
-            //SE O MOVIMENTO CAUSAR UM CHEQUE PARA A EQUIPE, O METODO RETORNA TRUE
-            //CASO NADA ACONTEÇA, O METODO RETORNA FALSE
-
             if (!this.simulaMovimento(posicao, pecaDaPosicao, jogadorAdversario)) {
-                //RETORNANDO FALSE(NÃO CHEQUE), ELE ADICIONA NA LISTA
                 possiveisMovimentosVerificadosCheque.add(posicao);
             }
         }
-
-        //RETORNA A LISTA FILTRADA
         return possiveisMovimentosVerificadosCheque;
     }
 
     public void executarRoque(Peca rei, Posicao posicaoRei, Peca torre, Posicao posicaoTorre) {
-
-        //REI
-        //Atribui a peça para a nova posição no tabuleiro
         posicaoRei.setPeca(rei);
-        // Remove a peça da posição anterior no tabuleiro
         rei.getPosicao().setPeca(null);
-        // Troca a posição atual da peça na lógica
         rei.setPosicao(posicaoRei);
         ((Rei) rei).setPrimeiroMovimento();
-
-        //TORRE
-        //Atribui a peça para a nova posição no tabuleiro
         posicaoTorre.setPeca(torre);
-        // Remove a peça da posição anterior no tabuleiro
         torre.getPosicao().setPeca(null);
-        // Troca a posição atual da peça na lógica
         torre.setPosicao(posicaoTorre);
         ((Torre) torre).setPrimeiroMovimento();
-
     }
 
     public String imprimirTabuleiro(Jogador jogadorBrancas, Jogador jogadorPretas) {
-
-        //VARIÁVEL PARA ARMAZENAR A STRING DO TABULEIRO
         String tabuleiro = "";
-
-        //IMPRIME O JOGADOR DAS PRETAS
         tabuleiro += (jogadorPretas.getNome() + "\n");
         tabuleiro += (jogadorPretas.getPecasAdversarioAbatidas() + "\n");
-
-
-        //IMPRIME AS COORDENADAS HORIZONTAIS
         tabuleiro += ("      1      ");
         tabuleiro += ("     2      ");
         tabuleiro += ("     3      ");
@@ -303,13 +256,11 @@ public class Tabuleiro {
                 if (posicaoNoTabuleiro == 63) {
                     tabuleiro += (" |  A ");
                 }
-                //APLICA A QUEBRA DE LINHA
                 if (posicaoNoTabuleiro != 1 || posicaoNoTabuleiro != 64) {
                     tabuleiro += ("\n--------------------------------------------------------" +
                             "----------------------------------------\n");
                 }
             }
-            //APLICA A DIVISÃO HORIZONTAL
             else {
                 tabuleiro += ("  |  ");
             }
@@ -324,13 +275,13 @@ public class Tabuleiro {
 
     public void executarPromocao(Peca novaPeca) {
         //ARMAZENA A POSIÇÃO DA NOVA PEÇA PARA DIMINUIR O CÓDIGO
-        Posicao posicaoNovaPeca = novaPeca.getPosicao();
+        Object posicaoNovaPeca = novaPeca.getPosicao();
 
         //SETA A POSIÇÃO DA PEÇA QUE ESTÁ NA POSIÇÃO DE PEÇA
         posicaoNovaPeca.getPeca().setPosicao(null);
 
         //SETÁ A PEÇA DA POSIÇÃO QUE A PEÇA POSSUI
-        posicaoNovaPeca.setPeca(novaPeca);
+        posicaoNovaPeca.setPeca(null);
 
         //SETA A POSIÇÃO DA NOVA PEÇA
         novaPeca.setPosicao(posicaoNovaPeca);

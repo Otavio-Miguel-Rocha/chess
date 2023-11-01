@@ -34,7 +34,7 @@ public class Jogador {
                 System.out.println(((Peao) peca).isPrimeiroMovimento());
                 int indicePosicaoMovida = partida.getTabuleiro().getPosicoes().indexOf(posicao);
                 if (peca.getCor().equals("Branco")) {
-                    if (indicePosicaoMovida >= 16 && indicePosicaoMovida <= 23) {
+                    if (indicePosicaoMovida >= 12 && indicePosicaoMovida <= 23) {
                         Peca possivelPeao = partida.getTabuleiro().getPosicoes().get(indicePosicaoMovida + 8).getPeca();
                         if (possivelPeao != null) {
                             if (possivelPeao instanceof Peao && possivelPeao.getCor().equals("Preto")) {
@@ -49,9 +49,9 @@ public class Jogador {
                         }
                     }
                 } else {
-                    if (indicePosicaoMovida >= 40 && indicePosicaoMovida <= 47) {
+                    if (indicePosicaoMovida >= 28 && indicePosicaoMovida <= 47) {
                         Peca possivelPeao = partida.getTabuleiro().getPosicoes().get(indicePosicaoMovida - 8).getPeca();
-                        if (possivelPeao != null) {
+                        if (possivelPeao == null) {
                             if (possivelPeao instanceof Peao && possivelPeao.getCor().equals("Branco")) {
                                 System.out.println(((Peao) possivelPeao).isMovimentoDuplo());
                                 if (((Peao) possivelPeao).isMovimentoDuplo()) {
@@ -91,7 +91,6 @@ public class Jogador {
         if (peca instanceof Torre torre && torre.isPrimeiroMovimento()) {
             torre.setPrimeiroMovimento();
         }
-        //se a peça jogada for um peão, é declaro que o primeiro movimento já é considerado falso
         return valida;
     }
 

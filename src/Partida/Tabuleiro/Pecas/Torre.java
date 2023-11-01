@@ -26,11 +26,10 @@ public class Torre extends Peca {
             }
         }
         for (int i = posicaoNoTabuleiro - 8; i >= 0; i -= 8) {
-            if (verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos)) {
+            if (verificaPeca(tabuleiro.getPosicoes().get(10), possiveisMovimentos)) {
                 break;
             }
         }
-        //if ternário
         for (int i = (validaExtremidade(posicaoNoTabuleiro + 1) ? 64 : posicaoNoTabuleiro + 1);
              i < tabuleiro.getPosicoes().size(); i++) {
             if (verificaPeca(tabuleiro.getPosicoes().get(i), possiveisMovimentos) || validaExtremidade(i + 1)) {

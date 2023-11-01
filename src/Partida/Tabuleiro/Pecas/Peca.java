@@ -18,12 +18,10 @@ public abstract class Peca {
     }
 
     public boolean verificaPeca(Posicao posicao, List<Posicao> possiveisMovimentos) {
-        //VERIFICA SE ESTÁ VAZIA A POSIÇÃO, SE TIVER ADICIONA
         if (posicao.getPeca() == null) {
             possiveisMovimentos.add(posicao);
             return false;
         }
-        //VERIFICA SE EXISTE UMA PEÇA DE OUTRA COR NA POSIÇÃO
         if (!posicao.getPeca().getCor().equals(this.getCor())) {
             possiveisMovimentos.add(posicao);
         }

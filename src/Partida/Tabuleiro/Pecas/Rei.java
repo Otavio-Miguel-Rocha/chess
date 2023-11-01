@@ -54,10 +54,6 @@ public class Rei extends Peca {
             }
         }
         if (primeiroMovimento) {
-            //branco
-
-            //REFATORAR ESSE CÓDIGO
-
             if (this.getCor().equals("Branco")) {
                 //direito
                 Peca possivelTorreBrancaDireita = tabuleiro.getPosicoes().get(63).getPeca();

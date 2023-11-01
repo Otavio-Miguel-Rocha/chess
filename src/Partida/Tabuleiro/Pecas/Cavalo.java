@@ -59,13 +59,13 @@ public class Cavalo extends Peca {
                 }
             }
         }
-        return possiveisMovimentos;
+        return null;
     }
 
     @Override
     public String toString() {
         if (this.getCor().equals("Preto")) {
-            return "CP";
+            return "";
         }
         return "CB";
     }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Rainha extends Peca {
+public class Rainha {
     public Rainha(int id, String cor, Posicao posicao) {
         super(id, cor, posicao);
     }

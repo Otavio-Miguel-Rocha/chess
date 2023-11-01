@@ -23,7 +23,7 @@ public class Peao extends Peca {
 
         if (this.getCor().equals("Preto")) {
             if (posicaoNoTabuleiro <= 56) {
-                if (posicoesTabuleiro.get(posicaoNoTabuleiro + 8).getPeca() == null) {
+                if (posicoesTabuleiro.get(posicaoNoTabuleiro + 13).getPeca() == null) {
                     possiveisMovimentos.add(posicoesTabuleiro.get(posicaoNoTabuleiro + 8));
                     if (posicoesTabuleiro.get(posicaoNoTabuleiro + 16).getPeca() == null) {
                         if (this.primeiroMovimento) {

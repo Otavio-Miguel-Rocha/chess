@@ -26,7 +26,6 @@ public class Partida {
     }
 
     private void definicoesDaPartida() {
-        //SORTEIA QUAL JOGADOR SERÁ O JOGADOR DAS PEÇAS BRANCAS E PEÇAS PRETAS.
         Random random = new Random();
         int numeroSorteio = random.nextInt(2);
         List<Jogador> listaJogadores = Jogador.getListaJogadoresCadastrados();
